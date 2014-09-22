@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center_horizontal"
+	tools:context="${relativePackage}.${activityClass}" >
+
+	<RelativeLayout
+		android:id="@+id/srs_display_wrapper"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/textView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="false"
+			android:layout_alignParentRight="false"
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			android:layout_gravity="fill_horizontal"
+			android:text="SRS Parameters" />
+
+		<TextView
+			android:id="@+id/srs_parameters"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_below="@+id/textView1"
+			android:height="100dp"
+			android:text="@string/hello_world" />
+	</RelativeLayout>
+
+	<LinearLayout
+		android:id="@+id/assuredness_buttons"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/srs_display_wrapper" >
+
+		<Button
+			android:id="@+id/button1"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="qualitySelect"
+			android:text="1" />
+
+		<Button
+			android:id="@+id/button2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="qualitySelect"
+			android:text="2" />
+
+		<Button
+			android:id="@+id/button3"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="qualitySelect"
+			android:text="3" />
+
+		<Button
+			android:id="@+id/button4"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="qualitySelect"
+			android:text="4" />
+
+		<Button
+			android:id="@+id/button5"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="qualitySelect"
+			android:text="5" />
+	</LinearLayout>
+    <Button
+        android:id="@+id/new_record_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/assuredness_buttons"
+        android:text="New Record" />
+	<ListView
+		android:id="@+id/record_list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/new_record_button"
+		android:layout_centerHorizontal="true" >
+	</ListView>
+
+</RelativeLayout>
