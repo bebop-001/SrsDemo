@@ -7,41 +7,45 @@
  * Algorithm with pencil/paper.
  * ref:http://www.supermemo.com/articles/paper.htm
  */
+@file:Suppress("PrivatePropertyName")
+
 package com.example.srsdemo
 
-import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.ceil
 
-class SRS  // creator
-    () {
+class SRS {
     private var creationDate = Date()
     private var viewDate = creationDate
-    private var nextInterval // in days.
-            = 0
+    private var nextInterval = 0  // in days.
     private var EF = 1.3f // Efficiency factor.
-    private var repetitions // number of successful times recognized.
-            = 0
+    private var repetitions  = 0 // number of successful times recognized.
     private var assuredness = 0
 
     // update record based on assuredness of recognition.
     fun update(assuredness: Int): SRS {
         viewDate = Date()
         this.assuredness = assuredness
-        if (assuredness >= 3.0) {
-            nextInterval =
-                if (repetitions == 0) 1 else if (repetitions == 1) FIRST_INTERVAL_INCREMENT else {
-                    Math.ceil((nextInterval * EF).toDouble()).toInt()
+        when {
+            assuredness >= 3.0 -> {
+                nextInterval = when (repetitions) {
+                    0 -> 1
+                    1 -> FIRST_INTERVAL_INCREMENT
+                    else -> ceil((nextInterval * EF).toDouble()).toInt()
                 }
-            repetitions++
-        } else if (assuredness > 1) {
-            repetitions = 0
-            nextInterval = 1
-        } else {
-            repetitions = 0
-            nextInterval = 0
+                repetitions++
+            }
+            assuredness > 1 -> {
+                repetitions = 0
+                nextInterval = 1
+            }
+            else -> {
+                repetitions = 0
+                nextInterval = 0
+            }
         }
-        EF = EF + (0.1
+        EF += (0.1
                 - (ASSUREDNESS_MAX - assuredness)
                 * (0.8 + (ASSUREDNESS_MAX - assuredness) * 0.2)).toFloat()
         if (EF < EF_MIN) EF = EF_MIN
@@ -59,7 +63,6 @@ class SRS  // creator
         return rv
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun dateToString(dateIn: Date): String {
         val timeFormat = SimpleDateFormat("EEE LL/dd/y kk:mm z")
         // timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -96,7 +99,7 @@ class SRS  // creator
         private const val EF_MIN = 1.3f
 
         // Grade or assuredness of recognition.  1 = huh?? 5 = for sure.
-        private const val ASSUREDNESS_MIN = 1.0f
+        // private const val ASSUREDNESS_MIN = 1.0f
         private const val ASSUREDNESS_MAX = 5.0f
         private val format = arrayOf(
             "Date: %s",

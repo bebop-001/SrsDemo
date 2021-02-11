@@ -1,3 +1,5 @@
+@file:Suppress("ClassName")
+
 package com.example.srsdemo
 
 import android.app.Activity
@@ -10,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
-import java.util.*
 
 /* This is an java/android implementation of the SuperMemory
  * Spaced Repetition Algorithm.
@@ -20,7 +21,8 @@ import java.util.*
  * ref:http://www.supermemo.com/english/ol/sm2.htm
  * Algorithm with pencil/paper.
  * ref:http://www.supermemo.com/articles/paper.htm
- */   class MainActivity : Activity() {
+ */
+class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
@@ -56,13 +58,13 @@ import java.util.*
                 inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 itemView = inflater!!.inflate(R.layout.srs_list_item, parent, false)
                 vh = ViewHolder()
-                vh!!.srsTv = itemView.findViewById<View>(R.id.srs_record_info) as TextView
+                vh.srsTv = itemView.findViewById<View>(R.id.srs_record_info) as TextView
                 vh.idxTv = itemView.findViewById<View>(R.id.srs_index) as TextView
                 vh.index = index
                 itemView.tag = vh
                 Log.i(logTag, "inner: " + vh.idxTv!!.text + ":" + index + ":" + vh.index)
             }
-            vh!!.idxTv!!.text = "" + (srsList.size - index)
+            vh.idxTv!!.text = "${srsList.size - index}"
             vh.srsTv!!.text = srs.toString()
             Log.i(
                 logTag, "SRS_ListAdapter:getView: "
@@ -77,13 +79,15 @@ import java.util.*
     fun qualitySelect(v: View) {
         val id = v.id
         var assuredness = 0
-        if (id == R.id.button1) assuredness = 1 else if (id == R.id.button2) assuredness =
-            2 else if (id == R.id.button3) assuredness =
-            3 else if (id == R.id.button4) assuredness =
-            4 else if (id == R.id.button5) assuredness =
-            5 else if (id == R.id.new_record_button) srs = SRS() else Log.d(
-            logTag, "Invalid button id:$id"
-        )
+        when (id) {
+            R.id.button1 -> assuredness = 1
+            R.id.button2 -> assuredness = 2
+            R.id.button3 -> assuredness = 3
+            R.id.button4 -> assuredness = 4
+            R.id.button5 -> assuredness = 5
+            R.id.new_record_button -> srs = SRS()
+            else -> Log.d(logTag, "Invalid button id:$id")
+        }
         if (assuredness > 0) {
             val viewSrs = findViewById<View>(R.id.srs_parameters) as TextView
             viewSrs.text = srs.update(assuredness).toText()
