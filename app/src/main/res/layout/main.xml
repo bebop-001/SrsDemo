@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:gravity="center_horizontal"
-	tools:context="${relativePackage}.${activityClass}" >
+	>
 
 	<RelativeLayout
 		android:id="@+id/srs_display_wrapper"
@@ -29,7 +29,7 @@
 			android:layout_alignParentLeft="true"
 			android:layout_below="@+id/textView1"
 			android:height="100dp"
-			android:text="@string/hello_world" />
+			/>
 	</RelativeLayout>
 
 	<LinearLayout

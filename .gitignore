@@ -28,3 +28,6 @@ proguard/
 # vim files.
 .*.swp
 .*.swo
+
+*/.gitignore
+*.pro
